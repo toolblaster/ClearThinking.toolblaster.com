@@ -3,116 +3,240 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Clear Thinking | Inversion: The Strategic Art of Looking Backward to Move Forward</title>
+    <title>Inversion (Mental Model) for Problem Solving: The Power of Thinking Backward | Clear Thinking Library</title>
     
     <!-- 1. Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script> 
     
     <!-- 2. Integrated CSS -->
     <style>
-        body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
-        .article-content h3 {
-            border-bottom: 2px solid #e0e7ff; 
-            padding-bottom: 0.5rem;
+        /* Base body and typography */
+        body { 
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; 
+            background-color: #f7f7f7;
+            color: #1f2937;
         }
-        .article-content h4 {
-            font-size: 1.625rem;
+
+        /* Mobile menu styles (copied from index.html) */
+        .hamburger {
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            width: 2rem;
+            height: 2rem;
+        }
+        .line {
+            width: 100%;
+            height: 3px;
+            background-color: #4f46e5;
+            transition: all 0.3s linear;
+        }
+        .menu-open .line-top {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+        .menu-open .line-middle {
+            opacity: 0;
+        }
+        .menu-open .line-bottom {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+
+        /* Styling for the main article content: This ensures consistency for h2/h3/p/ul/ol inside the article-content div */
+        .article-content h2 {
+            font-size: 2.5rem; /* text-4xl */
+            font-weight: 800; /* font-extrabold */
+            margin-top: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: #1f2937;
+        }
+        .article-content h3 {
+            font-size: 1.875rem; /* text-3xl */
+            font-weight: 700; /* font-bold */
+            margin-top: 2rem;
+            margin-bottom: 0.5rem;
+            border-bottom: 1px solid #e5e7eb;
+            padding-bottom: 0.25rem;
+            color: #374151; /* text-gray-700 */
         }
         .article-content p {
-            line-height: 1.75; 
+            margin-bottom: 1.25rem;
+            line-height: 1.75; /* leading-relaxed */
+        }
+        .article-content ul, .article-content ol {
+            margin-left: 1.5rem;
+            margin-bottom: 1.25rem;
+            padding-left: 0.5rem;
+        }
+        .article-content ul {
+            list-style-type: disc;
+        }
+        .article-content ol {
+            list-style-type: decimal;
+        }
+        .article-content li {
+            margin-bottom: 0.5rem;
+        }
+        /* Specific styling for the Indigo accent color for Frameworks */
+        .article-tag {
+            color: #4f46e5; /* Consistent Indigo accent color for Frameworks */
         }
     </style>
-    <meta name="description" content="Learn the Inversion mental model: solving problems by first defining what you want to avoid.">
+    <meta name="description" content="Inversion is a mental model that requires thinking backward: instead of determining how to achieve a goal, you determine what steps would guarantee failure.">
 </head>
 <body class="bg-gray-100 text-gray-800 antialiased">
 
-    <!-- Header & Navigation -->
-    <header class="bg-white shadow-lg sticky top-0 z-50 transition-all duration-300">
+    <!-- 1. Header & Navigation (Consistent Across Site) -->
+    <header class="bg-white shadow-xl sticky top-0 z-50 transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
-            <h1 class="text-3xl font-extrabold text-indigo-700 tracking-tight">Clear Thinking</h1>
+            
+            <!-- Logo Link - Clickable, with Icon, pointing to root directory / -->
+            <a href="/" class="flex items-center space-x-2 text-indigo-700 hover:text-indigo-900 transition duration-150 group">
+                <!-- Icon for Clarity (Zap/Lightning) -->
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="flex-shrink-0">
+                    <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                </svg>
+                <h1 class="text-3xl font-extrabold tracking-tight">Clear Thinking</h1>
+            </a>
+            
+            <!-- Desktop Navigation -->
             <nav id="main-nav" class="space-x-6 hidden sm:flex">
-                <!-- Correct path is up two levels to reach the root index.html -->
-                <a href="../../index.html" class="text-gray-600 hover:text-indigo-600 font-medium transition duration-150 p-2 rounded-lg hover:bg-indigo-50">Library</a>
-                <a href="#" class="text-gray-600 hover:text-indigo-600 font-medium transition duration-150 p-2 rounded-lg hover:bg-indigo-50">Models</a>
-                <a href="#" class="text-gray-600 hover:text-indigo-600 font-medium transition duration-150 p-2 rounded-lg hover:bg-indigo-50">Toolkit</a>
+                <a href="/#biases" class="text-gray-600 hover:text-[#E34037] font-medium transition duration-150 p-2 rounded-lg hover:bg-red-50">Cognitive Biases</a>
+                <a href="/#frameworks" class="text-gray-600 hover:text-indigo-600 font-medium transition duration-150 p-2 rounded-lg hover:bg-indigo-50">Frameworks</a>
+            </nav>
+
+            <!-- Mobile Hamburger Button -->
+            <button id="menu-toggle" class="sm:hidden p-2 rounded-lg transition duration-150 z-50 focus:outline-none" aria-label="Toggle Navigation">
+                <div class="hamburger" id="hamburger-icon">
+                    <span class="line line-top"></span>
+                    <span class="line line-middle"></span>
+                    <span class="line line-bottom"></span>
+                </div>
+            </button>
+        </div>
+
+        <!-- Mobile Menu (Hidden by default) -->
+        <div id="mobile-menu" class="hidden sm:hidden bg-white shadow-lg border-t border-gray-100 py-4 absolute w-full transition-all duration-300">
+            <nav class="flex flex-col space-y-2 px-4">
+                <a href="/#biases" class="text-gray-700 hover:bg-red-50 p-3 rounded-lg font-semibold transition duration-150" onclick="document.getElementById('mobile-menu').classList.add('hidden'); document.getElementById('hamburger-icon').classList.remove('menu-open');">Cognitive Biases</a>
+                <a href="/#frameworks" class="text-gray-700 hover:bg-indigo-50 p-3 rounded-lg font-semibold transition duration-150" onclick="document.getElementById('mobile-menu').classList.add('hidden'); document.getElementById('hamburger-icon').classList.remove('menu-open');">Frameworks</a>
             </nav>
         </div>
     </header>
-
-    <!-- Main Content Area: Article 4 - Inversion -->
+    
+    <!-- 2. Main Article Content Area -->
     <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-20">
-        <article class="bg-white p-6 sm:p-10 md:p-14 rounded-3xl shadow-2xl shadow-blue-300/50">
+
+        <!-- Breadcrumb / Back Link -->
+        <div class="mb-8">
+             <a href="/" class="text-indigo-600 hover:text-indigo-800 flex items-center space-x-2 font-medium">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5">
+                    <path d="M19 12H5"></path>
+                    <path d="M12 19l-7-7 7-7"></path>
+                </svg>
+                <span>Back to Library Home</span>
+             </a>
+        </div>
+
+        <!-- Article Hero/Metadata -->
+        <header class="mb-10 pb-6 border-b border-gray-200">
+            <p class="text-lg font-semibold article-tag uppercase tracking-wider mb-2">#Solution</p> 
+            <h1 class="text-5xl md:text-6xl font-extrabold text-gray-900 leading-tight mb-4">Inversion (Mental Model) for Problem Solving: The Power of Thinking Backward</h1> 
+            <p class="text-xl text-gray-600 italic">Thinking backward is often easier than thinking forward. This model is based on solving a problem by defining what you want to *avoid*.</p>
+        </header>
+
+        <!-- Article Body - ADD ALL ARTICLE TEXT CONTENT HERE -->
+        <div class="article-content text-lg leading-relaxed text-gray-800">
+
+            <h2>I. Model Definition: Reverse Engineering Success</h2>
+
+            <p><strong>Inversion is a problem-solving technique where, instead of trying to figure out how to achieve a desired outcome, you focus on determining what would guarantee the worst possible outcome (failure) and then avoid those things.</strong></p>
+
+            <p>This principle is rooted in the wisdom of mathematician **Carl Jacobi**, who famously advised: "Invert, always invert." By taking the negative path—the "anti-goal"—you clarify the true obstacles and create a robust defensive strategy that protects you from disaster.</p>
+
+            <h2>II. Explanation & Why It Works</h2>
+
+            <p>The core power of Inversion lies in the fact that avoiding a negative outcome often provides more clarity and certainty than pursuing a positive one. This is due to a few key factors:</p>
+
+            <h3>1. Clarity of Failure</h3>
+            <p>Defining "success" (e.g., "be rich," "be happy") is vague. Defining "failure" (e.g., "be broke," "be miserable") is concrete and actionable. Failure conditions are often easier to identify, list, and prevent.</p>
+
+            <h3>2. Avoiding Loss</h3>
+            <p>Psychologically, humans are motivated more strongly by the fear of loss (**Loss Aversion**) than by the promise of equivalent gain. Inversion harnesses this natural bias to create powerful motivation to act.</p>
+
+            <h2>III. Application: Avoiding Common Disasters</h2>
+
+            <p>Applying the model means translating your goal into its inverse and then creating an actionable list to avoid that inverse state:</p>
+
+            <h3>Inversion for Investing</h3>
+            <ul>
+                <li>**Forward Goal:** "How can I get rich in the stock market?" (Vague, prone to speculation).</li>
+                <li>**Inverse Question:** "What would guarantee my financial ruin?"</li>
+                <li>**Anti-Actions:** Investing based on a single news tip, trading frequently and racking up fees, putting all capital into one highly volatile asset.</li>
+                <li>**Resulting Strategy:** Diversify, keep costs low, invest consistently, and ignore short-term hype.</li>
+            </ul>
+
+            <h3>Inversion for Project Management</h3>
+            <ul>
+                <li>**Forward Goal:** "How do we launch this project successfully?"</li>
+                <li>**Inverse Question:** "How do we guarantee this project fails and misses the deadline?"</li>
+                <li>**Anti-Actions:** Allowing scope creep without managing resources, not communicating major risks to stakeholders, failing to define minimum viable product (MVP).</li>
+                <li>**Resulting Strategy:** Strictly manage scope, over-communicate risks, and commit only to the core MVP features.</li>
+            </ul>
             
-            <!-- Article Header -->
-            <header class="mb-10 border-b-4 border-blue-500 pb-6 text-center">
-                <p class="text-sm font-bold text-blue-600 uppercase tracking-widest mb-2">Pillar 1: Strategy</p>
-                <h2 class="text-4xl sm:text-5xl font-extrabold text-gray-900 mt-2 leading-tight">Inversion: The Strategic Art of Looking Backward to Move Forward</h2>
-                <p class="text-xl text-gray-600 mt-4 max-w-2xl mx-auto">The clearest path to success is often found by figuring out what you must absolutely avoid.</p>
-            </header>
+            <h3>Inversion for Personal Health</h3>
+            <ul>
+                <li>**Forward Goal:** "How can I be healthy and fit?"</li>
+                <li>**Inverse Question:** "What steps would guarantee I become unhealthy and out of shape?"</li>
+                <li>**Anti-Actions:** Drinking soda daily, getting less than six hours of sleep, avoiding physical activity for months.</li>
+                <li>**Resulting Strategy:** Eliminate soda, prioritize 7+ hours of sleep, and commit to 30 minutes of daily activity.</li>
+            </ul>
 
-            <!-- Full article content -->
-            <section class="article-content space-y-8 text-gray-700 text-lg leading-relaxed max-w-3xl mx-auto">
-                
-                <!-- Core Statement -->
-                <p class="text-2xl font-semibold text-gray-900 border-l-8 border-blue-500 pl-6 py-2 bg-blue-50 rounded-r-lg shadow-inner">
-                    <strong>Core Statement:</strong> Inversion is a problem-solving technique where, instead of trying to achieve a desired outcome, you focus on identifying and avoiding everything that would guarantee failure or ruin. By eliminating failure points, you often reveal the clear path to success.
-                </p>
+            <h2>IV. Toolkit: The Pre-Mortem Analysis</h2>
 
-                <p>This model, championed by mathematician Carl Jacobi and used extensively by Charlie Munger, is a powerful antidote to complexity. When direct solutions are too complicated, the defensive approach of Inversion provides clarity. It transforms the question from "How do I succeed?" to "What must I do to <strong>guarantee failure</strong>?"</p>
+            <p>The **Pre-Mortem** is the most practical tool for applying Inversion to any plan or project:</p>
+            <ol>
+                <li>**Imagine Failure:** Before you start the project, imagine that six months have passed and the project has completely failed.</li>
+                <li>**Identify Causes:** Ask everyone involved to anonymously write down all the reasons why the project failed (e.g., "We failed because the backend team never synced with the frontend team," or "We failed because the budget ran out after Phase 1").</li>
+                <li>**Actionable Prevention:** Review the list of hypothetical causes of failure. These are now your non-negotiable, proactive action items. You address these risks *before* they become reality.</li>
+            </ol>
+            <p>By psychologically projecting yourself into a failed future, you bypass the **Planning Fallacy** (which assumes everything will go well) and generate a clearer, more realistic map of the actual dangers ahead, allowing you to build defenses now.</p>
 
-                <h3 class="text-3xl font-bold text-gray-800 mt-12 mb-4">The Anti-Goal Audit (How to Invert)</h3>
-                <p>Use this three-step process when you are stuck on a difficult goal (e.g., losing weight, saving money, launching a product).</p>
+        </div>
+        <!-- Article Body - END -->
 
-                <h4 class="text-2xl font-semibold text-blue-600 mb-2">1. Define the Disaster</h4>
-                <p>Clearly write down the exact outcome you are trying to avoid. Be specific. *Example: Instead of "I want to save money," write: "I want to guarantee I will be broke and in debt in 12 months."*</p>
-
-                <h4 class="text-2xl font-semibold text-blue-600 mt-8 mb-2">2. List the Guarantees of Failure</h4>
-                <p>Brainstorm all the actions and behaviors that would make the Disaster (from Step 1) a certainty. *Example: The guarantees of being broke would include: using credit cards for non-essentials, eating out every day, canceling 401k contributions, ignoring bills.*</p>
-
-                <h4 class="text-2xl font-semibold text-blue-600 mt-8 mb-2">3. Execute the Avoidance List</h4>
-                <p>Your strategy is now simply the opposite of the failure list. Your success plan is to <strong>not do</strong> the items you listed in Step 2. *Example: Success means: freezing the credit card, preparing meals at home, automating 401k contributions, and checking the budget daily.*</p>
-
-                <h3 class="text-3xl font-bold text-gray-800 mt-12 mb-6 border-b-0">Toolkit: Systemic Inversion</h3>
-                
-                <!-- Toolkit Container -->
-                <div class="bg-blue-50 p-8 rounded-2xl shadow-inner shadow-blue-200/50 space-y-8 border border-blue-100">
-                    <p class="text-lg font-medium text-gray-700">Apply Inversion to entire systems or relationships.</p>
-
-                    <!-- Toolkit Item 1 -->
-                    <div class="bg-white p-6 rounded-xl shadow-lg border-t-4 border-blue-500 transition hover:shadow-xl">
-                        <h4 class="text-2xl font-extrabold text-blue-700 mb-3">1. The Relationship Inversion</h4>
-                        <p class="mb-3 font-medium text-gray-800">To maintain a strong relationship, don't ask, "What great things should I do?" Instead, ask, "What must I do to <strong>guarantee this relationship fails</strong>?" (e.g., constant criticism, lying, ignoring core needs). Now, simply eliminate those negative actions.</p>
-                    </div>
-
-                    <!-- Toolkit Item 2 -->
-                    <div class="bg-white p-6 rounded-xl shadow-lg border-t-4 border-blue-500 transition hover:shadow-xl">
-                        <h4 class="text-2xl font-extrabold text-blue-700 mb-3">2. The Product Inversion</h4>
-                        <p class="mb-3 font-medium text-gray-800">If you are building a product, don't just focus on features. Invert: "What is the fastest way to <strong>guarantee our product fails</strong>?" (e.g., confusing user interface, slow loading, zero customer support). By obsessing over eliminating these flaws, you create a baseline for success.</p>
-                    </div>
-                </div>
-
-                <p class="pt-8 border-t border-gray-200 mt-12 text-center text-xl font-medium text-gray-600">
-                    Inversion is the power of subtraction. Instead of adding complexity to find success, subtract complexity to avoid ruin.
-                </p>
-
-            </section>
-        </article>
     </main>
-
-    <!-- Footer -->
-    <footer class="bg-gray-900 mt-20">
-        <div class="max-w-7xl mx-auto py-10 px-4 sm:px-6 lg:px-8 text-center text-gray-400">
-            <p class="text-lg font-semibold text-white">&copy; <span id="current-year-6"></span> Clear Thinking | A Toolblaster Sub-Brand.</p>
-            <p class="mt-2 text-sm text-gray-500">A timeless library built with Custom HTML, Tailwind, and Clear Thinking.</p>
+    
+    <!-- 3. Footer (Consistent Across Site) -->
+    <footer class="bg-white shadow-2xl shadow-indigo-300/60 mt-20 border-t border-indigo-400">
+        <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 text-center">
+            <p class="text-lg font-semibold text-gray-900">
+                &copy; <span id="current-year"></span> Clear Thinking Library | 
+                <a href="https://toolblaster.com" target="_blank" class="text-indigo-600 hover:text-indigo-800 transition duration-150 font-bold">Toolblaster.com</a>
+            </p>
+            <p class="mt-1 text-sm text-gray-600">A curated collection of essential mental models and biases for better decision-making.</p>
         </div>
     </footer>
 
-    <!-- 3. Integrated JavaScript -->
+    <!-- 4. Integrated JavaScript (Consistent Across Site) -->
     <script>
+        // Logic for Footer Year Update
         document.addEventListener('DOMContentLoaded', () => {
-            const yearSpan = document.getElementById('current-year-6');
+            const yearSpan = document.getElementById('current-year');
             if (yearSpan) {
                 yearSpan.textContent = new Date().getFullYear();
+            }
+
+            // Logic for Mobile Menu Toggle
+            const menuToggle = document.getElementById('menu-toggle');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const hamburgerIcon = document.getElementById('hamburger-icon');
+
+            if (menuToggle) {
+                menuToggle.addEventListener('click', () => {
+                    const isHidden = mobileMenu.classList.toggle('hidden');
+                    hamburgerIcon.classList.toggle('menu-open', !isHidden);
+                });
             }
         });
     </script>
