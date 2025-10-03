@@ -3,15 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Clear Thinking | Confirmation Bias: Psychology and Avoidance Audit</title>
+    <title>Confirmation Bias: The "I Knew It All Along" Glitch | Clear Thinking Library</title>
     
     <!-- 1. Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script> 
     
     <!-- 2. Integrated CSS -->
     <style>
-        body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
-        /* Mobile menu styles */
+        /* Base body and typography */
+        body { 
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; 
+            background-color: #f7f7f7;
+            color: #1f2937;
+        }
+
+        /* Mobile menu styles (copied from index.html) */
         .hamburger {
             cursor: pointer;
             display: flex;
@@ -36,33 +42,67 @@
             transform: rotate(-45deg) translate(5px, -5px);
         }
 
-        /* Article content readability improvements */
-        .article-content h3 {
-            border-bottom: 2px solid #fee2e2; /* Red-100 equivalent for softer line */
-            padding-bottom: 0.5rem;
+        /* Styling for the main article content: This ensures consistency for h2/h3/p/ul/ol inside the article-content div */
+        .article-content h2 {
+            font-size: 2.5rem; /* text-4xl */
+            font-weight: 800; /* font-extrabold */
+            margin-top: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: #1f2937;
         }
-        .article-content h4 {
-            font-size: 1.625rem;
+        .article-content h3 {
+            font-size: 1.875rem; /* text-3xl */
+            font-weight: 700; /* font-bold */
+            margin-top: 2rem;
+            margin-bottom: 0.5rem;
+            border-bottom: 1px solid #e5e7eb;
+            padding-bottom: 0.25rem;
+            color: #374151; /* text-gray-700 */
         }
         .article-content p {
-            line-height: 1.75; 
+            margin-bottom: 1.25rem;
+            line-height: 1.75; /* leading-relaxed */
+        }
+        .article-content ul, .article-content ol {
+            margin-left: 1.5rem;
+            margin-bottom: 1.25rem;
+            padding-left: 0.5rem;
+        }
+        .article-content ul {
+            list-style-type: disc;
+        }
+        .article-content ol {
+            list-style-type: decimal;
+        }
+        .article-content li {
+            margin-bottom: 0.5rem;
+        }
+        /* Specific styling for the Red Error accent color */
+        .article-tag {
+            color: #E34037; /* Consistent Red accent color */
         }
     </style>
-    <meta name="description" content="A guide to understanding and counteracting Confirmation Bias, the tendency to favor information that aligns with existing beliefs.">
+    <meta name="description" content="The brain’s systematic tendency to actively seek out information that confirms prior beliefs, while ignoring contradictory evidence.">
 </head>
 <body class="bg-gray-100 text-gray-800 antialiased">
 
-    <!-- Header & Navigation -->
+    <!-- 1. Header & Navigation (Consistent Across Site) -->
     <header class="bg-white shadow-xl sticky top-0 z-50 transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
-            <h1 class="text-3xl font-extrabold text-indigo-700 tracking-tight">Clear Thinking</h1>
+            
+            <!-- Logo Link - Clickable, with Icon, pointing to root directory / -->
+            <a href="/" class="flex items-center space-x-2 text-indigo-700 hover:text-indigo-900 transition duration-150 group">
+                <!-- Icon for Clarity (Zap/Lightning) -->
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="flex-shrink-0">
+                    <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                </svg>
+                <h1 class="text-3xl font-extrabold tracking-tight">Clear Thinking</h1>
+            </a>
             
             <!-- Desktop Navigation -->
             <nav id="main-nav" class="space-x-6 hidden sm:flex">
-                <!-- Correct path is up two levels to reach the root index.html -->
-                <a href="../../index.html" class="text-gray-600 hover:text-indigo-600 font-medium transition duration-150 p-2 rounded-lg hover:bg-indigo-50">Library</a>
-                <a href="#biases" class="text-gray-600 hover:text-indigo-600 font-medium transition duration-150 p-2 rounded-lg hover:bg-indigo-50">Biases</a>
-                <a href="#frameworks" class="text-gray-600 hover:text-indigo-600 font-medium transition duration-150 p-2 rounded-lg hover:bg-indigo-50">Frameworks</a>
+                <a href="/#biases" class="text-gray-600 hover:text-[#E34037] font-medium transition duration-150 p-2 rounded-lg hover:bg-red-50">Cognitive Biases</a>
+                <a href="/#frameworks" class="text-gray-600 hover:text-indigo-600 font-medium transition duration-150 p-2 rounded-lg hover:bg-indigo-50">Frameworks</a>
             </nav>
 
             <!-- Mobile Hamburger Button -->
@@ -78,113 +118,126 @@
         <!-- Mobile Menu (Hidden by default) -->
         <div id="mobile-menu" class="hidden sm:hidden bg-white shadow-lg border-t border-gray-100 py-4 absolute w-full transition-all duration-300">
             <nav class="flex flex-col space-y-2 px-4">
-                <a href="../../index.html" class="text-gray-700 hover:bg-indigo-50 p-3 rounded-lg font-semibold transition duration-150" onclick="document.getElementById('mobile-menu').classList.add('hidden'); document.getElementById('hamburger-icon').classList.remove('menu-open');">Library</a>
-                <a href="#biases" class="text-gray-700 hover:bg-indigo-50 p-3 rounded-lg font-semibold transition duration-150" onclick="document.getElementById('mobile-menu').classList.add('hidden'); document.getElementById('hamburger-icon').classList.remove('menu-open');">Biases</a>
-                <a href="#frameworks" class="text-gray-700 hover:bg-indigo-50 p-3 rounded-lg font-semibold transition duration-150" onclick="document.getElementById('mobile-menu').classList.add('hidden'); document.getElementById('hamburger-icon').classList.remove('menu-open');">Frameworks</a>
+                <a href="/#biases" class="text-gray-700 hover:bg-red-50 p-3 rounded-lg font-semibold transition duration-150" onclick="document.getElementById('mobile-menu').classList.add('hidden'); document.getElementById('hamburger-icon').classList.remove('menu-open');">Cognitive Biases</a>
+                <a href="/#frameworks" class="text-gray-700 hover:bg-indigo-50 p-3 rounded-lg font-semibold transition duration-150" onclick="document.getElementById('mobile-menu').classList.add('hidden'); document.getElementById('hamburger-icon').classList.remove('menu-open');">Frameworks</a>
             </nav>
         </div>
     </header>
-
-    <!-- Main Content Area: Article -->
+    
+    <!-- 2. Main Article Content Area -->
     <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-20">
-        <article class="bg-white p-6 sm:p-10 md:p-14 rounded-3xl shadow-2xl shadow-red-300/50">
-            
-            <!-- Article Header -->
-            <header class="mb-10 border-b-4 border-red-500 pb-6 text-center">
-                <p class="text-sm font-bold text-red-600 uppercase tracking-widest mb-2">Pillar 1: Cognitive Biases</p>
-                <h2 class="text-4xl sm:text-5xl font-extrabold text-gray-900 mt-2 leading-tight">Confirmation Bias: Psychology and Avoidance Audit</h2>
-                <p class="text-xl text-gray-600 mt-4 max-w-2xl mx-auto">The silent killer of logic: Our innate desire to seek, interpret, and favor information that confirms what we already believe.</p>
-            </header>
 
-            <!-- Full article content -->
-            <section class="article-content space-y-8 text-gray-700 text-lg leading-relaxed max-w-3xl mx-auto">
-                
-                <!-- Core Statement -->
-                <p class="text-2xl font-semibold text-gray-900 border-l-8 border-red-500 pl-6 py-2 bg-red-50 rounded-r-lg shadow-inner">
-                    <strong>Core Statement:</strong> Confirmation Bias is the powerful cognitive shortcut that makes us feel smart and certain, while simultaneously blinding us to contradictory evidence and the truth.
-                </p>
+        <!-- Breadcrumb / Back Link -->
+        <div class="mb-8">
+             <a href="/" class="text-indigo-600 hover:text-indigo-800 flex items-center space-x-2 font-medium">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5">
+                    <path d="M19 12H5"></path>
+                    <path d="M12 19l-7-7 7-7"></path>
+                </svg>
+                <span>Back to Library Home</span>
+             </a>
+        </div>
 
-                <p>This bias is not a character flaw; it's an efficiency mechanism built into the human brain. It's easier and faster to affirm an existing belief than it is to dismantle and rebuild it. However, in complex areas like finance, strategy, and relationships, it guarantees stagnation and error.</p>
+        <!-- Article Hero/Metadata -->
+        <header class="mb-10 pb-6 border-b border-gray-200">
+            <p class="text-lg font-semibold article-tag uppercase tracking-wider mb-2">#Error</p> 
+            <h1 class="text-5xl md:text-6xl font-extrabold text-gray-900 leading-tight mb-4">Confirmation Bias: The "I Knew It All Along" Glitch</h1> 
+            <p class="text-xl text-gray-600 italic">The brain’s systematic tendency to actively seek out, interpret, favor, and recall information that confirms or supports our prior beliefs.</p>
+        </header>
 
-                <h3 class="text-3xl font-bold text-gray-800 mt-12 mb-4">The Three Stages of Confirmation Bias</h3>
-                <p>The bias doesn't just affect what we read; it affects how we interact with the entire world:</p>
+        <!-- Article Body - ADD ALL ARTICLE TEXT CONTENT HERE -->
+        <div class="article-content text-lg leading-relaxed text-gray-800">
 
-                <h4 class="text-2xl font-semibold text-red-600 mb-2">1. Selective Seeking (The Echo Chamber)</h4>
-                <p>We actively search for sources and people who already agree with us. If you believe Topic X is true, you search "Why Topic X is correct," rather than "Arguments against Topic X." The result is a self-reinforcing information ecosystem.</p>
-                
-                <h4 class="text-2xl font-semibold text-red-600 mt-8 mb-2">2. Selective Interpretation (The Favorable Filter)</h4>
-                <p>When presented with mixed evidence, we interpret ambiguous or neutral data as support for our hypothesis. Data points that slightly favor our view are given disproportionate weight, while those that hurt it are dismissed as "outliers."</p>
+            <h2>I. Model Definition: The Glitch in the Human System</h2>
 
-                <h4 class="text-2xl font-semibold text-red-600 mt-8 mb-2">3. Selective Recall (The Memory Reinforcement)</h4>
-                <p>We remember and recall facts that confirm our beliefs much more easily than facts that challenge them. Over time, your memory itself becomes a biased summary, making you feel increasingly certain of your view without any new evidence.</p>
+            <p><strong>Confirmation Bias is the brain’s systematic tendency to actively seek out, interpret, favor, and recall information that confirms or supports our prior beliefs, while conveniently ignoring or giving little weight to evidence that contradicts those beliefs.</strong></p>
 
-                <h3 class="text-3xl font-bold text-gray-800 mt-12 mb-6 border-b-0">The Avoidance Toolkit: Attacking Your Own Beliefs</h3>
-                
-                <!-- Toolkit Container -->
-                <div class="bg-red-50 p-8 rounded-2xl shadow-inner shadow-red-200/50 space-y-8 border border-red-100">
-                    <p class="text-lg font-medium text-gray-700">Use these methods to deliberately introduce friction and challenge your existing conclusions.</p>
+            <p>It is one of the most powerful and dangerous cognitive biases because it is not a mistake in logic—it is a <em>deliberate strategy</em> used by your brain to achieve internal consistency and reduce mental effort. Simply put, your brain prefers to be right, even if it has to filter out the truth to get there.</p>
 
-                    <!-- Toolkit Item 1 -->
-                    <div class="bg-white p-6 rounded-xl shadow-lg border-t-4 border-red-500 transition hover:shadow-xl">
-                        <h4 class="text-2xl font-extrabold text-red-700 mb-3">1. The "Devil's Advocate" Journal</h4>
-                        <p class="mb-3 font-medium text-gray-800">For any important decision or belief, spend 15 minutes writing down the strongest, most compelling arguments against it. Do not write a rebuttal; simply record the counter-arguments. This forces the Selective Seeking mechanism into reverse.</p>
-                    </div>
+            <h2>II. Explanation & The Buffet Analogy</h2>
 
-                    <!-- Toolkit Item 2 -->
-                    <div class="bg-white p-6 rounded-xl shadow-lg border-t-4 border-red-500 transition hover:shadow-xl">
-                        <h4 class="text-2xl font-extrabold text-red-700 mb-3">2. Inversion for Risk (Pre-Mortem)</h4>
-                        <p class="mb-3 font-medium text-gray-800">Assume your plan has failed spectacularly 12 months from now. Ask: <strong>"What single, unexpected factor caused the failure?"</strong> By starting with failure, you force yourself to consider contradictory risks you would have otherwise ignored (Selective Interpretation).</p>
-                    </div>
+            <p>The problem with Confirmation Bias is that it makes learning impossible. If you only look for reasons why you are correct, you will only ever find them, and you will never evolve your understanding.</p>
 
-                    <!-- Toolkit Item 3 -->
-                    <div class="bg-white p-6 rounded-xl shadow-lg border-t-4 border-red-500 transition hover:shadow-xl">
-                        <h4 class="text-2xl font-extrabold text-red-700 mb-3">3. Measure Evidence by Cost</h4>
-                        <p class="mb-3 font-medium text-gray-800">When evaluating data, ask: "How much did this piece of evidence cost to acquire?" If the data was free (e.g., a biased social media post), give it low weight. Give high weight to evidence that was expensive, time-consuming, or painful to collect (e.g., running a full scientific A/B test).</p>
-                    </div>
-                </div>
+            <h3>The Social Media Echo Chamber</h3>
 
-                <p class="pt-8 border-t border-gray-200 mt-12 text-center text-xl font-medium text-gray-600">
-                    The ability to tolerate cognitive dissonance—the pain of holding two conflicting ideas—is the price of clear thinking.
-                </p>
+            <p>Imagine the news media or your social media feed only showing you posts from people you already agree with. You feel smart, informed, and validated—but you are living in an <strong>echo chamber</strong>. The bias is like running a pre-programmed search filter that only returns <strong>pre-approved results.</strong></p>
 
-            </section>
-        </article>
+            <p>The filter blocks all critical input, making your worldview rigid and brittle. When you seek information, your brain isn't asking, <em>“What is true?”</em> it’s asking, <em>“What proves what I already believe?”</em></p>
+
+            <h2>III. Application: Where it Damages Your Life</h2>
+
+            <p>Confirmation Bias doesn't just apply to politics; it fundamentally limits success in three critical areas:</p>
+
+            <h3>1. Relationships and Conflict</h3>
+            <p>Once you decide that a person (a spouse, a colleague, a boss) is "difficult," you immediately start gathering evidence to support that narrative. If they forget to empty the dishwasher, it confirms the belief. If they remember to take out the trash, you ignore it or attribute it to luck. You stop seeing the full person and only see the convenient parts that confirm your judgment.</p>
+
+            <h3>2. Investing and Entrepreneurship</h3>
+            <p>An investor who believes a stock or a business is the "next big thing" will spend days only reading bullish news reports and articles written by people who already own the stock. They won't spend ten minutes researching the risks, market shifts, or competitor analysis, because their mind is already made up. This leads to tunnel vision and catastrophic losses.</p>
+
+            <h3>3. Hiring and Management</h3>
+            <p>Managers often decide they like a candidate in the first five minutes of an interview. The rest of the hour is then spent asking "confirming" questions designed to validate that initial positive feeling, rather than challenging the candidate's weaknesses. This leads to homogeneous, poorly balanced teams.</p>
+
+            <h2>IV. Toolkit: The 3-Step Information Audit</h2>
+
+            <p>To effectively counter Confirmation Bias, you need a pre-emptive, behavioral system. This proprietary method forces you to engage with ideas you naturally want to reject.</p>
+
+            <h3>1. The "Pre-Mortem" Check (Before You Start)</h3>
+            <p>Before committing time, money, or effort to any major decision (new project, new purchase, new relationship):</p>
+            <ul>
+                <li>Write down: <strong>“What is the single piece of evidence that would make me stop, change course, or reverse my opinion right now?”</strong></li>
+                <li>If you cannot name the evidence that would prove you wrong, you are already trapped by the bias. The answer becomes your non-negotiable emergency brake.</li>
+            </ul>
+
+            <h3>2. The 3-Source Challenge (When Researching)</h3>
+            <p>When you find an article, video, or data set that excites you because it confirms your belief:</p>
+            <ul>
+                <li>Force yourself to search for and read three sources that hold the <strong>opposite, conflicting, or skeptical viewpoint.</strong></li>
+                <li>The goal isn't to change your mind, but to understand the <em>other side's strongest argument</em>. This ensures you are prepared for resistance and that your decision is pressure-tested.</li>
+            </ul>
+
+            <h3>3. The Steel Man Rule (When Debating or Discussing)</h3>
+            <p>When engaging with an idea you disagree with (in an argument, a meeting, or while reading):</p>
+            <ul>
+                <li>Practice restating the opponent’s argument in its absolute <strong>strongest, fairest, and most charitable form</strong> before responding.</li>
+                <li>If you can't articulate their case better than they can, you don't fully understand it, and you're likely setting up a <em>straw man</em> (a weak, easily defeated version of their argument) to confirm your own superiority. <strong>Build the Steel Man first.</strong></li>
+            </ul>
+
+            <p>The ability to look for reasons why your current beliefs might be wrong is the hallmark of advanced critical thought. By instituting these three simple steps, you shift your brain from seeking validation to seeking truth, leading to vastly better decisions over time.</p>
+
+        </div>
+        <!-- Article Body - END -->
+
     </main>
-
-    <!-- Footer -->
-    <footer class="bg-gray-900 mt-20">
-        <div class="max-w-7xl mx-auto py-10 px-4 sm:px-6 lg:px-8 text-center text-gray-400">
-            <p class="text-lg font-semibold text-white">&copy; <span id="current-year-confirmation"></span> Clear Thinking | A Toolblaster Sub-Brand.</p>
-            <p class="mt-2 text-sm text-gray-500">A timeless library built with Custom HTML, Tailwind, and Clear Thinking.</p>
+    
+    <!-- 3. Footer (Consistent Across Site) -->
+    <footer class="bg-white shadow-2xl shadow-indigo-300/60 mt-20 border-t border-indigo-400">
+        <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 text-center">
+            <p class="text-lg font-semibold text-gray-900">
+                &copy; <span id="current-year"></span> Clear Thinking Library | 
+                <a href="https://toolblaster.com" target="_blank" class="text-indigo-600 hover:text-indigo-800 transition duration-150 font-bold">Toolblaster.com</a>
+            </p>
+            <p class="mt-1 text-sm text-gray-600">A curated collection of essential mental models and biases for better decision-making.</p>
         </div>
     </footer>
 
-    <!-- 3. Integrated JavaScript -->
+    <!-- 4. Integrated JavaScript (Consistent Across Site) -->
     <script>
         // Logic for Footer Year Update
         document.addEventListener('DOMContentLoaded', () => {
-            const yearSpan = document.getElementById('current-year-confirmation');
+            const yearSpan = document.getElementById('current-year');
             if (yearSpan) {
                 yearSpan.textContent = new Date().getFullYear();
             }
 
-            // Logic for Mobile Menu Toggle (Reused across all articles)
+            // Logic for Mobile Menu Toggle
             const menuToggle = document.getElementById('menu-toggle');
             const mobileMenu = document.getElementById('mobile-menu');
             const hamburgerIcon = document.getElementById('hamburger-icon');
 
-            if (menuToggle) { 
+            if (menuToggle) {
                 menuToggle.addEventListener('click', () => {
                     const isHidden = mobileMenu.classList.toggle('hidden');
                     hamburgerIcon.classList.toggle('menu-open', !isHidden);
-                    
-                    // Close menu if a link is clicked
-                    mobileMenu.querySelectorAll('a').forEach(link => {
-                        link.addEventListener('click', () => {
-                            mobileMenu.classList.add('hidden');
-                            hamburgerIcon.classList.remove('menu-open');
-                        });
-                    });
                 });
             }
         });
